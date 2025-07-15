@@ -1,61 +1,57 @@
 import Link from "next/link";
+import { AnimatedBackground } from "../ui/Buttons";
 
 interface LinkType {
-  href: string;
-  title: string;
+    href: string;
+    title: string;
 }
 
-function NavLink({ title, href }: LinkType) {
-  return (
+const NavLink = ({ title, href }: LinkType) => (
     <li className="font-semibold text-xl opacity-80">
-      <Link href={href}>{title}</Link>
+        <Link href={href}>{title}</Link>
     </li>
-  );
-}
+);
 
 export default function Navbar() {
-  const authLinkClasses: string =
-    "border px-16 py-3 font-bold text-xl rounded-xl";
+    const links: LinkType[] = [
+        { title: "Link", href: "/" },
+        { title: "Link", href: "/1" },
+        { title: "Link", href: "/2" },
+        { title: "Link", href: "/2" },
+    ];
 
-  const links: LinkType[] = [
-    { title: "Link", href: "/" },
-    { title: "Link", href: "/1" },
-    { title: "Link", href: "/2" },
-    { title: "Link", href: "/2" },
-  ];
-
-  return (
-    <nav className="navbar px-4 uppercase border-b-1 border-base-content/10">
-      <div className="navbar-start font-bold lowercase text-3xl">
-        <Link href={"/"}>Digilos</Link>
-      </div>
-      <ul className="navbar-center gap-4 menu menu-horizontal">
-        {links.map((link, index) => (
-          <NavLink key={index} title={link.title} href={link.href} />
-        ))}
-      </ul>
-      <ul className="navbar-end gap-2 menu-horizontal menu">
-        <li>
-          <Link
-            href="/login"
-            className={authLinkClasses + " " + "border-base-content/10"}
-          >
-            Login
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/register"
-            className={
-              authLinkClasses +
-              " " +
-              "border-primary/10 bg-primary text-primary-content"
-            }
-          >
-            Register
-          </Link>
-        </li>
-      </ul>
-    </nav>
-  );
+    return (
+        <nav className="navbar px-4 uppercase border-b-1 border-base-content/10">
+            <div className="navbar-start font-bold lowercase text-3xl">
+                <Link href="/">Digilos</Link>
+            </div>
+            <ul className="navbar-center gap-4 menu menu-horizontal">
+                {links.map((l, i) => (
+                    <NavLink key={i} {...l} />
+                ))}
+            </ul>
+            <ul className="navbar-end gap-2 menu-horizontal menu">
+                <li>
+                    <AnimatedBackground
+                        slideBg="bg-primary"
+                        className="border-base-content/10 text-base-content rounded-xl border-1 px-15 py-2  hover:text-primary-content text-xl font-semibold duration-100 ease-linear"
+                    >
+                        <Link href={"/login"} className="bg-transparent">
+                            Login
+                        </Link>
+                    </AnimatedBackground>
+                </li>
+                <li>
+                    <AnimatedBackground
+                        slideBg="bg-base-100"
+                        className="border-base-content/10 text-primary-content bg-primary rounded-xl border-1 px-15 py-2  hover:text-base-content  text-xl font-semibold duration-100 ease-linear"
+                    >
+                        <Link href={"/register"} className="bg-transparent">
+                            Register
+                        </Link>
+                    </AnimatedBackground>
+                </li>
+            </ul>
+        </nav>
+    );
 }
