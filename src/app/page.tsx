@@ -1,9 +1,5 @@
 "use client";
 
-
 export default function Home() {
-  return (
-    <div className="p-20">
-    </div>
-  );
+  return <div className="p-20"></div>;
 }
